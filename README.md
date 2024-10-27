@@ -20,7 +20,7 @@ Features
 - Admin Panel: New admin page with additional functionality:
    * Add and delete products from the product list.
 
-https://github.com/user-attachments/assets/d334fa05-3bed-41d4-826a-63c35dcf8bfd
+https://github.com/user-attachments/assets/01754a56-39b8-4e94-95b1-dd65f0e68591
 
 <br/>
 
