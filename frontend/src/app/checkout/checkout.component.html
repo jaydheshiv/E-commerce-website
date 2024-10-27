@@ -1,0 +1,72 @@
+<app-header *ngIf="!btnprintHide"></app-header>
+<div class="container mt-5">
+  <div *ngIf="!successMsg" class="row">
+    <div class="mt-5"></div>
+    <div class="col-lg-5 shadow p-3 bg-white rounded mt-3">
+      <div class="h4 text-center"><b>Order Summary</b></div>
+      <div class="p-3" *ngIf="products.length > 0">
+        <div class="col">
+          <label class="mb-1 fw-bold" for="name">Name</label>
+          <input type="text" id="name" [(ngModel)]="name" class="form-control" />
+        </div>
+        <hr />
+        <div class="col">
+          <label class="mb-1 fw-bold" for="email">Email</label>
+          <input type="email" id="email" [(ngModel)]="email" class="form-control" />
+        </div>
+        <hr />
+        <div class="col">
+          <label class="mb-1 fw-bold" for="mobile">Mobile</label>
+          <input type="tel" id="mobile" [(ngModel)]="mobile" class="form-control" />
+        </div>
+        <hr />
+        <div class="col">
+          <label class="mb-1 fw-bold" for="address">Address</label>
+          <input type="text" id="address" [(ngModel)]="address" class="form-control" />
+        </div>
+        <hr />
+        <div class="mt-2">
+          <button (click)="generatePdf()" class="btn btn-primary">
+            Download PDF
+          </button>
+        </div>
+        <!-- Add this line in your existing checkout.component.html where you want to show ordered products -->
+    
+
+      </div>
+      <div *ngIf="products.length === 0" class="text-muted text-center">
+        No products in the order.
+      </div>
+    </div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-6 mt-3">
+      <!-- Product list -->
+      <ul class="shadow p-3 bg-white rounded">
+        <div class="h5 text-secondary"><b>Order Items:</b></div>
+        <li
+          *ngFor="let product of products"
+          class="d-flex justify-content-around text-start align-items-center mb-2 px-4 border-bottom pb-2"
+        >
+          <div class="col">
+            <img
+              width="50px"
+              class="rounded-4 border border-light-subtle border-3"
+              [src]="product.image"
+              [alt]="product.title"
+            />
+          </div>
+          <div class="h6 col">{{ product.title }}</div>
+          <div class="h6 col">
+            <div class="text-center">{{ product.count }}</div>
+          </div>
+          <div class="h6 col">${{ product.price }}</div>
+        </li>
+        <div class="d-flex h5 mt-3 justify-content-center">
+          <span class="w-75 rounded bg-primary p-2 text-white text-center">
+            Grant Total: ${{ total }}
+          </span>
+        </div>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="ordered-products">
+  <h2>Ordered Products</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Count</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.title }}</td>
+        <td>{{ product.count }}</td>
+        <td>${{ product.price }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Total: ${{ total }}</h3>
+</div>

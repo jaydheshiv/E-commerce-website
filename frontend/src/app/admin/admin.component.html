@@ -1,0 +1,57 @@
+<div *ngIf="!isAuthenticated">
+  <h2>Admin Login</h2>
+  <input type="password" [(ngModel)]="adminPassword" placeholder="Enter Admin Password" />
+  <button (click)="checkPassword()">Login</button>
+</div>
+
+<div *ngIf="isAuthenticated">
+  <div class="container">
+    <h2>Admin Page</h2>
+    
+    <form (submit)="addProduct()">
+      <div class="form-group">
+        <label for="id">Product ID:</label>
+        <input type="number" id="id" [(ngModel)]="newProduct.id" name="id" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="title">Product Title:</label>
+        <input type="text" id="title" [(ngModel)]="newProduct.title" name="title" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="number" id="price" [(ngModel)]="newProduct.price" name="price" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea id="description" [(ngModel)]="newProduct.description" name="description" class="form-control" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="category">Category:</label>
+        <input type="text" id="category" [(ngModel)]="newProduct.category" name="category" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="image">Image URL:</label>
+        <input type="text" id="image" [(ngModel)]="newProduct.image" name="image" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="rate">Rating (Rate):</label>
+        <input type="number" id="rate" [(ngModel)]="newProduct.rating.rate" name="rate" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="count">Rating (Count):</label>
+        <input type="number" id="count" [(ngModel)]="newProduct.rating.count" name="count" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Add Product</button>
+    </form>
+    
+    <hr>
+    
+    <h3>Existing Products</h3>
+    <ul class="list-group">
+      <li *ngFor="let product of products" class="list-group-item">
+        {{ product.name }} - ${{ product.price }}
+        <button (click)="deleteProduct(product._id)" class="btn btn-danger btn-sm float-end">Delete</button>
+      </li>
+    </ul>
+  </div>
+</div>

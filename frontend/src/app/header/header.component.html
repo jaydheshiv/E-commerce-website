@@ -1,0 +1,316 @@
+<!-- Navigation-->
+<nav
+  class="navbar fixed-top navbar-expand-lg navbar-light shadow-sm"
+  id="mainNav"
+>
+  <div class="container px-4 px-lg-5">
+    <i class="fa-solid fa-dollar-sign fa-2x text-danger"></i>
+    <a class="fst-italic navbar-brand text-danger fw-bolder" routerLink="">
+      &nbsp; Shopperoo!
+    </a>
+    <a routerLink="/admin" class="btn btn-primary">Admin</a>
+
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="me-auto mb-lg-0 ms-lg-4"></ul>
+      <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-4">
+        <li *ngIf="searchBarHide" class="nav-item">
+          <form class="d-flex">
+            <input
+              (keyup)="search($event)"
+              type="text"
+              placeholder="search for products"
+              class="form-control"
+            />
+          </form>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" routerLink="/wish-list"
+            >&nbsp; &nbsp;<i class="fa-solid fa-heart"></i> Wish List</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="btn" routerLink="/view-cart">
+            <i class="fa-solid fa-cart-plus me-1"></i>
+            Cart
+            <span class="badge bg-dark text-white ms-1 rounded-pill">{{
+              cartCount
+            }}</span>
+          </a>
+        </li>
+        <li *ngIf="!username" class="nav-item">
+          <a
+            class="nav-link active dropdown-item btn"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+            >&nbsp; &nbsp;<i class="fa-solid fa-user"></i> Login</a
+          >
+        </li>
+        <li *ngIf="username" class="nav-item dropdown">
+          <a
+            class="nav-link active dropdown-toggle bg rounded-pill px-3 mb-1 mb-lg-0"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            &nbsp;<i class="fa-solid fa-user"></i> {{ username }}
+          </a>
+          <ul class="dropdown-menu profile">
+            <li>
+              <a class="dropdown-item"
+                ><i class="fa-solid fa-user-gear"></i> My Profile</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/track-order"
+                ><i class="fa-solid fa-truck-fast"></i> My Orders</a
+              >
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item" (click)="logout()"
+                ><i class="fa-solid fa-user-slash"></i> Logout</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- modal for login -->
+<div
+  data-mdb-delay="3000"
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h4 class="fw-bold modal-title s-5" id="staticBackdropLabel">
+          Login here
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="container px-lg-5">
+          <div class="row">
+            <div class="col-6">
+              <img
+                src="https://cdn.pixabay.com/photo/2013/07/12/14/53/cart-148964_640.png"
+                alt="no image"
+                width="150px"
+              />
+            </div>
+            <div class="col-6 mt-5 text-danger fw-bolder">
+              Get access to your Orders, Wishlist and Recommendations
+            </div>
+          </div>
+        </div>
+
+        <div class="p-3">
+          <form (ngSubmit)="login()" [formGroup]="loginForm">
+            <div class="form-floating mb-2">
+              <input
+                name="email"
+                formControlName="email"
+                placeholder="Enter Email"
+                id="floatingEmail"
+                type="text"
+                class="form-control"
+              />
+              <label for="floatingEmail">Enter Email</label>
+            </div>
+            <div
+              *ngIf="
+                this.loginForm.get('email')?.errors &&
+                this.loginForm.get('email')?.touched
+              "
+              class="text-danger mb-2"
+            >
+              Invalid Email
+            </div>
+            <div class="form-floating mb-2">
+              <input
+                name="password"
+                formControlName="password"
+                placeholder="Enter Password"
+                id="floatingPassword"
+                type="password"
+                class="form-control"
+              />
+              <label for="floatingPassword">Enter Password</label>
+            </div>
+            <div
+              *ngIf="
+                this.loginForm.get('password')?.errors &&
+                this.loginForm.get('password')?.touched
+              "
+              class="text-danger mb-2"
+            >
+              Invalid Password
+            </div>
+            <div class="text-danger mb-2">{{ errorMsg }}</div>
+            <div class="mt-2">
+              <button type="submit" class="btn btn-danger">
+                Login &nbsp;
+                <span
+                  *ngIf="successMsg"
+                  class="spinner-border text-white"
+                  role="status"
+                >
+                  <span class="visually-hidden">Loading...</span>
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+        <span class="ms-3">
+          New User? Click Here to
+          <a
+            class="text-primary"
+            type="submit"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop1"
+            >Register</a
+          >
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal for Registration  -->
+<div
+  class="modal fade"
+  id="staticBackdrop1"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h4 class="fw-bold modal-title s-5" id="staticBackdropLabel">
+          Register here
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <img
+            src="https://cdn.pixabay.com/photo/2022/07/21/12/40/laptop-7336170_640.png"
+            alt="no image"
+            width="100px"
+          />
+        </div>
+        <div class="p-3">
+          <form (ngSubmit)="register()" [formGroup]="registerForm">
+            <div class="form-floating mb-2">
+              <input
+                name="username"
+                formControlName="username"
+                placeholder="Enter Name"
+                id="floatingName"
+                type="text"
+                class="form-control"
+              />
+              <label for="floatingName">Enter Name</label>
+            </div>
+            <div
+              *ngIf="
+                this.registerForm.get('username')?.errors &&
+                this.registerForm.get('username')?.touched
+              "
+              class="text-danger mb-2"
+            >
+              Invalid name
+            </div>
+            <div class="form-floating mb-2">
+              <input
+                name="email"
+                formControlName="email"
+                placeholder="Enter Email"
+                id="floatingEmail"
+                type="text"
+                class="form-control"
+              />
+              <label for="floatingEmail">Enter Email</label>
+            </div>
+            <div
+              *ngIf="
+                this.registerForm.get('email')?.errors &&
+                this.registerForm.get('email')?.touched
+              "
+              class="text-danger mb-2"
+            >
+              Invalid Email
+            </div>
+            <div class="form-floating mb-2">
+              <input
+                name="password"
+                formControlName="password"
+                placeholder="Enter Password"
+                id="floatingPassword"
+                type="password"
+                class="form-control"
+              />
+              <label for="floatingPassword">Enter Password</label>
+            </div>
+            <div
+              *ngIf="
+                this.registerForm.get('password')?.errors &&
+                this.registerForm.get('password')?.touched
+              "
+              class="text-danger mb-2"
+            >
+              Invalid Password
+            </div>
+            <div class="mt-2">
+              <button type="submit" class="btn btn-danger">Register</button>
+              <span class="ms-3">
+                Existing User?
+                <a
+                  class="text-primary"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                  >Log in</a
+                >
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
