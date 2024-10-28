@@ -24,7 +24,7 @@ https://github.com/user-attachments/assets/01754a56-39b8-4e94-95b1-dd65f0e68591
 
 <br/>
 
-LINK:https://e-commerce-mean-stack.vercel.app/
+LINK:  https://e-commerce-mean-stack.vercel.app/
 
 Pages:
 - Home: View featured products and browse categories.
