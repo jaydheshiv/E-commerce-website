@@ -19,8 +19,8 @@ Features
    * Quantity selection option for each item.
 - Admin Panel: New admin page with additional functionality:
    * Add and delete products from the product list.
-
-https://github.com/user-attachments/assets/01754a56-39b8-4e94-95b1-dd65f0e68591
+     
+https://github.com/user-attachments/assets/acd2fe64-a017-4d61-a4d4-b182c25b7406
 
 <br/>
 
